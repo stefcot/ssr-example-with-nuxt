@@ -1,68 +1,115 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        nuxt-on-steroids-2
+  <div class="home-page">
+    <section class="intro">
+      <h1>
+        Get the lastest tech news
       </h1>
-      <h2 class="subtitle">
-        Pages, routing &amp; views on nuxt
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+    </section>
+    <section class="featured-posts">
+      <nuxt-link :to="'/posts/' + 1" class="post-preview">
+        <article>
+          <div
+            class="post-thumbnail"
+            :style="{
+              backgroundImage:
+                'url(' +
+                require('@/assets/img/765090-most-popular-technology-background-images-1920x1080-hd-for-mobile.jpg') +
+                ')'
+            }"
+          ></div>
+          <div class="post-content">
+            <h1>Post title 1</h1>
+            <p>Preview post 1</p>
+          </div>
+        </article>
+      </nuxt-link>
+      <nuxt-link :to="'/posts/' + 2" class="post-preview">
+        <article>
+          <div
+            class="post-thumbnail"
+            :style="{
+              backgroundImage:
+                'url(' +
+                require('@/assets/img/765090-most-popular-technology-background-images-1920x1080-hd-for-mobile.jpg') +
+                ')'
+            }"
+          ></div>
+          <div class="post-content">
+            <h1>Post title 2</h1>
+            <p>Preview post 2</p>
+          </div>
+        </article>
+      </nuxt-link>
+    </section>
   </div>
 </template>
 
-<script>
-import Logo from '~/components/Logo.vue'
-
-export default {
-  components: {
-    Logo
+<style class="scoped">
+.intro {
+  height: 300px;
+  position: relative;
+  padding: 30px;
+  box-sizing: border-box;
+  background-position: center;
+  background-size: cover;
+}
+.intro h1 {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 90%;
+  font-size: 1.5rem;
+  color: black;
+  background-color: rgb(211, 211, 211);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px black;
+  box-sizing: border-box;
+  border: 1px solid black;
+}
+@media (min-width: 768px) {
+  .intro h1 {
+    font-family: 'Fjalla One', sans-serif;
+    font-size: 2rem;
   }
 }
-</script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
+.featured-posts {
   display: flex;
-  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+}
+.post-preview {
+  border: 1px solid #ccc;
+  box-shadow: 0 0 3px #ccc;
+  background-color: white;
+  width: 100%;
+  padding: 10px;
+  margin: 20px;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+@media (min-width: 850px) {
+  .post-preview {
+    width: 400px;
+  }
+}
+.post-thumbnail {
+  width: 100%;
+  height: 200px;
+  background-position: center;
+  background-size: cover;
+}
+.post-content {
+  padding: 10px;
   text-align: center;
 }
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+a:hover .post-content,
+a:active .post-content {
+  background-color: #ccc;
 }
 </style>
