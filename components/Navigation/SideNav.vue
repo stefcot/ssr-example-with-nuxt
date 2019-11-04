@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: 'Sidenav',
+  name: 'SideNav',
   props: {
     show: {
       type: Boolean,

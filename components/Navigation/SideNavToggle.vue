@@ -6,6 +6,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'SideNavToggle'
+}
+</script>
+
 <style scoped>
 .drawer-toggle {
   display: flex;

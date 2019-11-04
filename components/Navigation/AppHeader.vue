@@ -1,11 +1,10 @@
 <template>
   <div class="header-container">
     <header class="the-header">
-      <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
+      <SideNavToggle @toggle="$emit('sidenavToggle')" />
       <div class="logo">
         <nuxt-link to="/">WD BLOG</nuxt-link>
       </div>
-      <div class="spacer"></div>
       <div class="navigation-items">
         <ul class="nav-list">
           <li class="nav-item"><nuxt-link to="/posts">Blog</nuxt-link></li>
@@ -18,12 +17,12 @@
 </template>
 
 <script>
-import TheSideNavToggle from '@/components/Navigation/TheSideNavToggle'
+import SideNavToggle from '@/components/Navigation/SideNavToggle'
 
 export default {
-  name: 'Header',
+  name: 'AppHeader',
   components: {
-    TheSideNavToggle
+    SideNavToggle
   }
 }
 </script>
@@ -47,17 +46,13 @@ export default {
 }
 
 .logo {
-  margin: 0 10px;
+  margin: 0 auto 0 10px;
   font-size: 1.3rem;
 }
 
 .logo a {
   text-decoration: none;
   color: white;
-}
-
-.spacer {
-  flex: 1;
 }
 
 .navigation-items {
