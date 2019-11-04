@@ -5,21 +5,14 @@
         Get the lastest tech news
       </h1>
     </section>
-    <section class="featured-posts">
-      <post-preview
-        :id="1"
-        title="First post"
-        preview-text="Some greta explanation"
-        thumbnail="765090-most-popular-technology-background-images-1920x1080-hd-for-mobile.jpg"
-      ></post-preview>
-    </section>
+    <PostList></PostList>
   </div>
 </template>
 
 <script>
-import PostPreview from '@/components/Posts/PostPreview'
+import PostList from '@/components/Posts/PostList'
 export default {
-  components: { PostPreview }
+  components: { PostList }
 }
 </script>
 
@@ -52,13 +45,5 @@ export default {
     font-family: 'Fjalla One', sans-serif;
     font-size: 2rem;
   }
-}
-.featured-posts {
-  display: flex;
-  padding: 20px;
-  box-sizing: border-box;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
 }
 </style>
