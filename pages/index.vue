@@ -29,6 +29,7 @@ export default {
   position: relative;
   padding: 30px;
   box-sizing: border-box;
+  background-image: url('~assets/images/765105-technology-background-images-1920x1080-free-download.jpg');
   background-position: center;
   background-size: cover;
 }

@@ -4,7 +4,8 @@
       <div
         class="post-thumbnail"
         :style="{
-          backgroundImage: 'url(' + require(`@/assets/img/${thumbnail}`) + ')'
+          backgroundImage:
+            'url(' + require(`@/assets/images/${thumbnail}`) + ')'
         }"
       ></div>
       <div class="post-content">
