@@ -2,7 +2,7 @@
   <div class="admin-page">
     <h1>Admin page</h1>
     <section class="new-post">
-      <button @click="onCreateButtonClick">Create post</button>
+      <AppButton @click="onCreateButtonClick">Create post</AppButton>
     </section>
     <section class="existing-posts">
       <h1>Existing posts</h1>
@@ -13,8 +13,9 @@
 
 <script>
 import PostList from '@/components/Posts/PostList'
+import AppButton from '@/components/UI/AppButton'
 export default {
-  components: { PostList },
+  components: { PostList, AppButton },
   methods: {
     onCreateButtonClick() {
       this.$router.push('/admin/new-post')

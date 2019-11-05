@@ -21,9 +21,10 @@ export default {
   font: inherit;
   background-color: black;
   color: white;
-  padding: 5px;
+  padding: 5px 10px;
   cursor: pointer;
   border: 1px solid black;
+  outline: 0 none;
 }
 
 .button:hover,
@@ -35,14 +36,14 @@ export default {
 .inverted {
   background-color: white;
   color: black;
-  border: 1px solid transparent;
+  border: 1px solid black;
 }
 
 .inverted:hover,
 .inverted:active {
   color: #ccc;
   background-color: white;
-  border: 1px solid transparent;
+  border: 1px solid #ccc;
 }
 
 .cancel {
