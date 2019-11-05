@@ -2,6 +2,7 @@
   <section class="posts-list">
     <post-preview
       :id="1"
+      :is-admin="isAdmin"
       title="First post"
       preview-text="Some greta explanation"
       thumbnail="765090-most-popular-technology-background-images-1920x1080-hd-for-mobile.jpg"
@@ -13,7 +14,15 @@
 import PostPreview from '@/components/Posts/PostPreview'
 export default {
   name: 'PostList',
-  components: { PostPreview }
+  components: {
+    PostPreview
+  },
+  props: {
+    isAdmin: {
+      type: Boolean,
+      default: false
+    }
+  }
 }
 </script>
 

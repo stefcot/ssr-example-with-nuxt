@@ -3,7 +3,7 @@
     <section class="post">
       <h1>Title of the post</h1>
       <div class="post-details small">
-        <div>Last uodated on XXX</div>
+        <div>Last updated on XXX</div>
         <div>Written by NAME</div>
       </div>
       <p class="post-content">
@@ -22,6 +22,7 @@
   display: flex;
   width: 100%;
   flex-flow: column;
+  padding: 30px;
 }
 .post {
   display: flex;
@@ -37,11 +38,13 @@ h1 {
 }
 .post-details {
   display: flex;
+  flex-flow: column;
 }
 .post-content {
   display: block;
   padding: 0;
   margin: 0 0 10px;
+  text-align: left;
 }
 .post-feedback {
   font-style: italic;
