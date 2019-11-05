@@ -5,14 +5,31 @@
         Get the lastest tech news
       </h1>
     </section>
-    <PostList></PostList>
+    <PostList :posts="loadedPosts"></PostList>
   </div>
 </template>
 
 <script>
 import PostList from '@/components/Posts/PostList'
 export default {
-  components: { PostList }
+  components: {
+    PostList
+  },
+  data() {
+    return {
+      loadedPosts: [
+        {
+          id: 1,
+          author: 'Stéphane Cottereau',
+          title: 'What I think about Vue.js',
+          previewText:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          thumbnail:
+            '765090-most-popular-technology-background-images-1920x1080-hd-for-mobile.jpg'
+        }
+      ]
+    }
+  }
 }
 </script>
 

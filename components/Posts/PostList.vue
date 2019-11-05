@@ -1,11 +1,13 @@
 <template>
   <section class="posts-list">
     <post-preview
-      :id="1"
+      v-for="post in posts"
+      :id="post.id"
+      :key="post.id"
       :is-admin="isAdmin"
-      title="First post"
-      preview-text="Some greta explanation"
-      thumbnail="765090-most-popular-technology-background-images-1920x1080-hd-for-mobile.jpg"
+      :title="post.title"
+      :preview-text="post.previewText"
+      :thumbnail="post.thumbnail"
     ></post-preview>
   </section>
 </template>
@@ -21,6 +23,10 @@ export default {
     isAdmin: {
       type: Boolean,
       default: false
+    },
+    posts: {
+      type: Array,
+      required: true
     }
   }
 }
