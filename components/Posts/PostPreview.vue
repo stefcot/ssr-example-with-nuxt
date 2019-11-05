@@ -49,7 +49,7 @@ export default {
 }
 </script>
 
-<style class="scoped">
+<style scoped>
 .post-preview {
   border: 1px solid #ccc;
   box-shadow: 0 0 3px #ccc;

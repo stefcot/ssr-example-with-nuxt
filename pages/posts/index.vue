@@ -14,7 +14,7 @@ export default {
 }
 </script>
 
-<style class="scoped">
+<style scoped>
 .posts-page {
   display: flex;
   flex-flow: column;

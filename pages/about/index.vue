@@ -23,7 +23,7 @@
   </div>
 </template>
 
-<style class="scoped">
+<style scoped>
 .about-page {
   padding: 30px;
 }

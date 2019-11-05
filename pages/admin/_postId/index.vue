@@ -30,7 +30,7 @@ export default {
 }
 </script>
 
-<style class="scoped">
+<style scoped>
 .admin-post-page {
   padding: 30px;
 }

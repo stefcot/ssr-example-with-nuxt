@@ -25,7 +25,7 @@ export default {
 }
 </script>
 
-<style class="scoped">
+<style scoped>
 .admin-page {
   padding: 20px;
 }
