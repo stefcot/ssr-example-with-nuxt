@@ -1,13 +1,13 @@
 <template>
   <div class="single-post-page">
     <section class="post">
-      <h1>Title of the post</h1>
+      <h1>{{ loadedPost.title }}</h1>
       <div class="post-details small">
-        <div>Last updated on XXX</div>
-        <div>Written by NAME</div>
+        <div>Last updated on {{ loadedPost.upDatedDate }}</div>
+        <div>Written by {{ loadedPost.author }}</div>
       </div>
       <p class="post-content">
-        Content of the post.
+        {{ loadedPost.content }}
       </p>
     </section>
     <section class="post-feedback">
@@ -16,6 +16,30 @@
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  asyncData(context, callback) {
+    // eslint-disable-next-line nuxt/no-timing-in-fetch-data
+    setTimeout(() => {
+      callback(null, {
+        loadedPost: {
+          id: 1,
+          title: 'Post (ID #' + context.params.id + ')',
+          previewText:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          author: 'Stéphane Cottereau',
+          upDatedDate: new Date(),
+          content:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+          thumbnail:
+            '765090-most-popular-technology-background-images-1920x1080-hd-for-mobile.jpg'
+        }
+      })
+    }, 1000)
+  }
+}
+</script>
 
 <style scoped>
 .single-post-page {
