@@ -17,7 +17,12 @@ export default {
   },
   data() {
     return {
-      loadedPosts: [
+      loadedPosts: []
+    }
+  },
+  created() {
+    setTimeout(() => {
+      this.loadedPosts = [
         {
           id: 1,
           author: 'Stéphane Cottereau',
@@ -28,7 +33,7 @@ export default {
             '765090-most-popular-technology-background-images-1920x1080-hd-for-mobile.jpg'
         }
       ]
-    }
+    }, 1500)
   }
 }
 </script>
