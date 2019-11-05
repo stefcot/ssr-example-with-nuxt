@@ -1,4 +1,4 @@
-# nuxt-on-steroids-2
+# Study on nuxt, and differences between classic coding and Nuxt for SSR
 
 > Pages, routing &amp; views on nuxt
 
@@ -18,5 +18,3 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
