@@ -8,13 +8,22 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import PostList from '@/components/Posts/PostList'
 import { SET_POSTS } from '@/store/types'
 
 export default {
   components: { PostList },
-  asyncData(context) {
+  computed: {
+    ...mapGetters({ loadedPosts: 'loadedPosts' })
+  },
+  /**
+   * Nuxt option that works the same as asyncData, fetch on server once and on client several times after.
+   * IMPORTANT: initialize the store instead of merging received data with data option.
+   * @param context
+   * @returns {Promise<any | never>}
+   */
+  fetch(context) {
     // Here the second callback arguments has been removed to keep nuxt from waiting its execution.
     // If the promise is rejected, the page will be redirected to the error page.
     return new Promise((resolve) => {
@@ -48,14 +57,11 @@ export default {
       // reject(new Error()) // For some reason something went south
     })
       .then((data) => {
-        return { ...data }
+        context.store.commit(SET_POSTS, data.loadedPosts)
       })
       .catch((err) => {
         context.error(new Error(err))
       })
-  },
-  created() {
-    this.setPosts(this.loadedPosts)
   },
   methods: {
     ...mapActions({ setPosts: SET_POSTS })
