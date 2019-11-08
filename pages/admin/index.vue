@@ -6,7 +6,7 @@
     </section>
     <section class="existing-posts">
       <h1>Existing posts</h1>
-      <PostList is-admin></PostList>
+      <PostList is-admin :posts="[]"></PostList>
     </section>
   </div>
 </template>

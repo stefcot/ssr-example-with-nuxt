@@ -8,7 +8,9 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import PostList from '@/components/Posts/PostList'
+import { SET_POSTS } from '@/store/types'
 
 export default {
   components: { PostList },
@@ -51,6 +53,12 @@ export default {
       .catch((err) => {
         context.error(new Error(err))
       })
+  },
+  created() {
+    this.setPosts(this.loadedPosts)
+  },
+  methods: {
+    ...mapActions({ setPosts: SET_POSTS })
   }
 }
 </script>
