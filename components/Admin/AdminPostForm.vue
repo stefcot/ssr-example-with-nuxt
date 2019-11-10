@@ -20,7 +20,7 @@
       >Cancel</AppButton
     >
     <span class="last-modified"
-      >Last modified on {{ editedPost.updatedDate }}</span
+      >Last modified on {{ editedPost.updatedDate | date }}</span
     >
   </form>
 </template>

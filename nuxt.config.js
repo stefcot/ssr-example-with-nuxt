@@ -37,8 +37,10 @@ export default {
   css: ['~assets/styles/main.css'],
   /*
    ** Plugins to load before mounting the App
+   * It can any piece of code supposed to run before root mount:
+   * Filters, directives or plugin and components registrations to extend Vue
    */
-  plugins: ['~plugins/components-library'],
+  plugins: ['~plugins/components-library', '~plugins/date-filter'],
   /*
    ** Nuxt.js dev-modules
    */
