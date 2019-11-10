@@ -7,7 +7,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { mapActions } from 'vuex'
+import { ADD_POST } from '@/store/types'
 import AdminPostForm from '@/components/Admin/AdminPostForm'
 
 export default {
@@ -16,21 +17,11 @@ export default {
     AdminPostForm
   },
   methods: {
+    ...mapActions({ addPost: ADD_POST }),
     onSubmit(postData) {
-      axios
-        .post('https://nuxt-db-post.firebaseio.com/posts.json', {
-          ...postData,
-          updatedDate: new Date()
-        })
-        .then((result) => {
-          // eslint-disable-next-line no-console
-          console.log('on success - result: ', result)
-          this.$router.push('/posts/')
-        })
-        .catch((err) => {
-          // eslint-disable-next-line no-console
-          console.error(err)
-        })
+      this.addPost(postData).then(() => {
+        this.$router.push('/admin')
+      })
     }
   }
 }

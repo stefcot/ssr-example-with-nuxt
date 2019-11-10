@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { SET_POSTS } from '@/store/types'
+import { SET_POSTS, ADD_POST, EDIT_POST } from '@/store/types'
 
 export const state = () => ({
   loadedPosts: []
@@ -12,6 +12,13 @@ export const getters = {
 export const mutations = {
   [SET_POSTS](state, posts) {
     state.loadedPosts = posts
+  },
+  [ADD_POST](state, post) {
+    state.loadedPosts.push(post)
+  },
+  [EDIT_POST](state, post) {
+    const postIndex = state.loadedPosts.findIndex((item) => item.id === post.id)
+    state.loadedPosts[postIndex] = post
   }
 }
 
@@ -41,5 +48,43 @@ export const actions = {
 
   [SET_POSTS](vuexContext, payload) {
     vuexContext.commit(SET_POSTS, payload)
+  },
+
+  [ADD_POST](vuexContext, payload) {
+    const createdPost = {
+      ...payload,
+      updatedDate: new Date()
+    }
+
+    return axios
+      .post('https://nuxt-db-post.firebaseio.com/posts.json', createdPost)
+      .then((res) => {
+        // eslint-disable-next-line no-console
+        console.log('Store - ADD_POST on success - res: ', res)
+        vuexContext.commit(ADD_POST, { ...createdPost, id: res.data.name })
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.error(err)
+      })
+  },
+
+  [EDIT_POST](vuexContext, payload) {
+    // eslint-disable-next-line no-console
+    console.log('Store - EDIT_POST - payload: ', payload)
+    return axios
+      .put(
+        `https://nuxt-db-post.firebaseio.com/posts/${payload.id}.json`,
+        payload
+      )
+      .then((res) => {
+        // eslint-disable-next-line no-console
+        console.log('Store - EDIT_POST on success - res: ', res)
+        vuexContext.commit(EDIT_POST, payload)
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.error(err)
+      })
   }
 }
