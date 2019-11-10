@@ -18,10 +18,14 @@ export default {
   methods: {
     onSubmit(postData) {
       axios
-        .post('https://nuxt-db-post.firebaseio.com/post.json', postData)
+        .post('https://nuxt-db-post.firebaseio.com/posts.json', {
+          ...postData,
+          updatedDate: new Date()
+        })
         .then((result) => {
           // eslint-disable-next-line no-console
           console.log('on success - result: ', result)
+          this.$router.push('/posts/')
         })
         .catch((err) => {
           // eslint-disable-next-line no-console

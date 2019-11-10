@@ -22,7 +22,7 @@ export const actions = {
   // NOTE : if you need specific data you can still use asyncData for that
   nuxtServerInit(vuexContext, context) {
     return axios
-      .get('https://nuxt-db-post.firebaseio.com/post.json')
+      .get('https://nuxt-db-post.firebaseio.com/posts.json')
       .then((res) => {
         // eslint-disable-next-line no-console
         console.log('on success - res.data: ', res.data)

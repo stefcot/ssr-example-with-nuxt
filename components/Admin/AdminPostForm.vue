@@ -8,6 +8,9 @@
     <AppControlInput v-model="editedPost.content" control-type="textarea"
       >Content</AppControlInput
     >
+    <AppControlInput v-model="editedPost.previewText" control-type="textarea"
+      >Preview text</AppControlInput
+    >
     <AppButton type="submit">Save</AppButton>
     <AppButton
       type="button"
@@ -43,7 +46,9 @@ export default {
             title: '',
             author: '',
             thumbnail: '',
-            content: ''
+            content: '',
+            previewText: '',
+            updatedDate: ''
           }
     }
   },

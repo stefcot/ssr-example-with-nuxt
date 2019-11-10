@@ -3,7 +3,7 @@
     <section class="post">
       <h1>{{ loadedPost.title }}</h1>
       <div class="post-details small">
-        <div>Last updated on {{ loadedPost.upDatedDate }}</div>
+        <div>Last updated on {{ loadedPost.updatedDate }}</div>
         <div>Written by {{ loadedPost.author }}</div>
       </div>
       <p class="post-content">
@@ -18,25 +18,22 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  asyncData(context, callback) {
-    // eslint-disable-next-line nuxt/no-timing-in-fetch-data
-    setTimeout(() => {
-      callback(null, {
-        loadedPost: {
-          id: 1,
-          title: 'Post (ID #' + context.params.id + ')',
-          previewText:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          author: 'Stéphane Cottereau',
-          upDatedDate: new Date(),
-          content:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-          thumbnail:
-            '765090-most-popular-technology-background-images-1920x1080-hd-for-mobile.jpg'
+  asyncData(context) {
+    return axios
+      .get(
+        `https://nuxt-db-post.firebaseio.com/posts/${context.params.id}.json`
+      )
+      .then((res) => {
+        // we use this way cause we actually MERGE the response with the default values of 'loadedPost'
+        return {
+          loadedPost: res.data
         }
       })
-    }, 1000)
+      .catch((err) => {
+        context.error(err)
+      })
   }
 }
 </script>
