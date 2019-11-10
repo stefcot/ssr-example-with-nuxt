@@ -34,11 +34,11 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['~assets/styles/main.css'],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~plugins/components-library'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -66,5 +66,12 @@ export default {
      */
     baseApiUrl:
       process.env.BASE_API_URL || 'https://nuxt-db-post.firebaseio.com'
+  },
+  pageTransition: {
+    /*
+     * Transition prefix for the anim executed between 2 pages, like the rest, it can be overwritten
+     */
+    name: 'fade',
+    mode: 'out-in'
   }
 }
