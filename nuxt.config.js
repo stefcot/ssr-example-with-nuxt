@@ -58,5 +58,13 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  env: {
+    /*
+     * Here you can store all you env based variables as so
+     *
+     */
+    baseApiUrl:
+      process.env.BASE_API_URL || 'https://nuxt-db-post.firebaseio.com'
   }
 }

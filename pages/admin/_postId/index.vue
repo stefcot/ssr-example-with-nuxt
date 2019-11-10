@@ -32,9 +32,7 @@ export default {
   },
   asyncData(context) {
     return axios
-      .get(
-        `https://nuxt-db-post.firebaseio.com/posts/${context.params.postId}.json`
-      )
+      .get(`${process.env.baseApiUrl}/posts/${context.params.postId}.json`)
       .then((res) => {
         // Merging loadedPost as well as in '/posts/_id' page
 

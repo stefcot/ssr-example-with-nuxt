@@ -22,9 +22,7 @@ import axios from 'axios'
 export default {
   asyncData(context) {
     return axios
-      .get(
-        `https://nuxt-db-post.firebaseio.com/posts/${context.params.id}.json`
-      )
+      .get(`${process.env.baseApiUrl}/posts/${context.params.id}.json`)
       .then((res) => {
         // we use this way cause we actually MERGE the response with the default values of 'loadedPost'
         return {

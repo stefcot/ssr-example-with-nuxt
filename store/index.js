@@ -29,7 +29,7 @@ export const actions = {
   // NOTE : if you need specific data you can still use asyncData for that
   nuxtServerInit(vuexContext, context) {
     return axios
-      .get('https://nuxt-db-post.firebaseio.com/posts.json')
+      .get(`${process.env.baseApiUrl}/posts.json`)
       .then((res) => {
         // eslint-disable-next-line no-console
         console.log('nuxtServerInit - res.data: ', res.data)
@@ -57,7 +57,7 @@ export const actions = {
     }
 
     return axios
-      .post('https://nuxt-db-post.firebaseio.com/posts.json', createdPost)
+      .post(`${process.env.baseApiUrl}/posts.json`, createdPost)
       .then((res) => {
         // eslint-disable-next-line no-console
         console.log('Store - ADD_POST on success - res: ', res)
@@ -73,10 +73,7 @@ export const actions = {
     // eslint-disable-next-line no-console
     console.log('Store - EDIT_POST - payload: ', payload)
     return axios
-      .put(
-        `https://nuxt-db-post.firebaseio.com/posts/${payload.id}.json`,
-        payload
-      )
+      .put(`${process.env.baseApiUrl}/posts/${payload.id}.json`, payload)
       .then((res) => {
         // eslint-disable-next-line no-console
         console.log('Store - EDIT_POST on success - res: ', res)
