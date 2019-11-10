@@ -19,6 +19,9 @@
       @click="onCancel"
       >Cancel</AppButton
     >
+    <span class="last-modified"
+      >Last modified on {{ editedPost.updatedDate }}</span
+    >
   </form>
 </template>
 <script>
@@ -63,4 +66,14 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.last-modified {
+  display: block;
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  font-style: italic;
+  color: #47494e;
+  font-size: 0.75em;
+  margin: 10px auto;
+}
+</style>

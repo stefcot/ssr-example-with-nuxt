@@ -6,17 +6,21 @@
     </section>
     <section class="existing-posts">
       <h1>Existing posts</h1>
-      <PostList is-admin :posts="[]"></PostList>
+      <PostList is-admin :posts="loadedPosts"></PostList>
     </section>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import PostList from '@/components/Posts/PostList'
 import AppButton from '@/components/UI/AppButton'
 export default {
   layout: 'admin',
   components: { PostList, AppButton },
+  computed: {
+    ...mapGetters({ loadedPosts: 'loadedPosts' })
+  },
   methods: {
     onCreateButtonClick() {
       this.$router.push('/admin/new-post')

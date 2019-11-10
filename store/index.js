@@ -25,7 +25,7 @@ export const actions = {
       .get('https://nuxt-db-post.firebaseio.com/posts.json')
       .then((res) => {
         // eslint-disable-next-line no-console
-        console.log('on success - res.data: ', res.data)
+        console.log('nuxtServerInit - res.data: ', res.data)
         const postsArray = []
 
         for (const key in res.data) {

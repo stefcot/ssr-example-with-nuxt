@@ -2,12 +2,13 @@
   <div class="admin-post-page">
     <h1>Post admin page</h1>
     <section class="update-form">
-      <AdminPostForm :post="loadedPost"></AdminPostForm>
+      <AdminPostForm :post="loadedPost" @submit="onSubmit"></AdminPostForm>
     </section>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import AdminPostForm from '@/components/Admin/AdminPostForm'
 
 export default {
@@ -18,14 +19,32 @@ export default {
   data() {
     return {
       loadedPost: {
-        author: 'Stéphane Cottereau',
-        title: 'What I think about Vue.js',
-        content:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        thumbnail:
-          '765090-most-popular-technology-background-images-1920x1080-hd-for-mobile.jpg'
+        author: 'No name found',
+        title: 'No title found',
+        content: 'No content found',
+        thumbnail: 'No thumbnail found',
+        previewText: 'No preview text found',
+        updatedDate: 'No updated date found'
       }
     }
+  },
+  asyncData(context) {
+    return axios
+      .get(
+        `https://nuxt-db-post.firebaseio.com/posts/${context.params.postId}.json`
+      )
+      .then((res) => {
+        // Merging loadedPost as well as in '/posts/_id' page
+        return {
+          loadedPost: res.data
+        }
+      })
+      .catch((err) => {
+        context.error(err)
+      })
+  },
+  methods: {
+    onSubmit(postData) {}
   }
 }
 </script>
@@ -33,6 +52,10 @@ export default {
 <style scoped>
 .admin-post-page {
   padding: 30px;
+}
+
+.admin-post-page h1 {
+  text-align: center;
 }
 
 .update-form {
