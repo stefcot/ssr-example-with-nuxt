@@ -34,11 +34,13 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['~assets/styles/main.css'],
   /*
    ** Plugins to load before mounting the App
+   * It can any piece of code supposed to run before root mount:
+   * Filters, directives or plugin and components registrations to extend Vue
    */
-  plugins: [],
+  plugins: ['~plugins/components-library', '~plugins/date-filter'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -49,7 +51,15 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ['@nuxtjs/axios'],
+  /*
+   * Nuxt.js modules - AIOS
+   * Now we can configure default axios options
+   * and override the base url env variable
+   */
+  axios: {
+    baseURL: process.env.BASE_API_URL || 'https://nuxt-db-post.firebaseio.com'
+  },
   /*
    ** Build configuration
    */
@@ -58,5 +68,20 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  // env: {
+  //   /*
+  //    * Here you can store all you env based variables as so
+  //    *
+  //    */
+  //   baseApiUrl:
+  //     process.env.BASE_API_URL || 'https://nuxt-db-post.firebaseio.com'
+  // },
+  pageTransition: {
+    /*
+     * Transition prefix for the anim executed between 2 pages, like the rest, it can be overwritten
+     */
+    name: 'fade',
+    mode: 'out-in'
   }
 }

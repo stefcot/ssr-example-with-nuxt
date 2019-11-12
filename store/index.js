@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { SET_POSTS, ADD_POST, EDIT_POST } from '@/store/types'
 
 export const state = () => ({
@@ -28,15 +27,15 @@ export const actions = {
   // and you now can use through other components without having to reach out with the server
   // NOTE : if you need specific data you can still use asyncData for that
   nuxtServerInit(vuexContext, context) {
-    return axios
-      .get('https://nuxt-db-post.firebaseio.com/posts.json')
-      .then((res) => {
+    return this.$axios
+      .$get('/posts.json')
+      .then((data) => {
         // eslint-disable-next-line no-console
-        console.log('nuxtServerInit - res.data: ', res.data)
+        console.log('nuxtServerInit - data: ', data)
         const postsArray = []
 
-        for (const key in res.data) {
-          postsArray.push({ ...res.data[key], id: key })
+        for (const key in data) {
+          postsArray.push({ ...data[key], id: key })
         }
 
         vuexContext.commit(SET_POSTS, postsArray)
@@ -56,12 +55,14 @@ export const actions = {
       updatedDate: new Date()
     }
 
-    return axios
-      .post('https://nuxt-db-post.firebaseio.com/posts.json', createdPost)
-      .then((res) => {
+    return this.$axios
+      .$post('/posts.json', createdPost)
+      .then((data) => {
         // eslint-disable-next-line no-console
-        console.log('Store - ADD_POST on success - res: ', res)
-        vuexContext.commit(ADD_POST, { ...createdPost, id: res.data.name })
+        console.log('Store - ADD_POST on success - data: ', data)
+
+        // With axios module we dont get the response but the data directly
+        vuexContext.commit(ADD_POST, { ...createdPost, id: data.name })
       })
       .catch((err) => {
         // eslint-disable-next-line no-console
@@ -72,14 +73,11 @@ export const actions = {
   [EDIT_POST](vuexContext, payload) {
     // eslint-disable-next-line no-console
     console.log('Store - EDIT_POST - payload: ', payload)
-    return axios
-      .put(
-        `https://nuxt-db-post.firebaseio.com/posts/${payload.id}.json`,
-        payload
-      )
-      .then((res) => {
+    return this.$axios
+      .$put(`/posts/${payload.id}.json`, payload)
+      .then((data) => {
         // eslint-disable-next-line no-console
-        console.log('Store - EDIT_POST on success - res: ', res)
+        console.log('Store - EDIT_POST on success - data: ', data)
         vuexContext.commit(EDIT_POST, payload)
       })
       .catch((err) => {
