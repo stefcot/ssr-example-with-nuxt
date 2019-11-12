@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { mapActions } from 'vuex'
 import { EDIT_POST } from '@/store/types'
 import AdminPostForm from '@/components/Admin/AdminPostForm'
@@ -31,16 +30,18 @@ export default {
     }
   },
   asyncData(context) {
-    return axios
-      .get(`${process.env.baseApiUrl}/posts/${context.params.postId}.json`)
-      .then((res) => {
+    return context.app.$axios
+      .$get(`/posts/${context.params.postId}.json`)
+      .then((data) => {
         // Merging loadedPost as well as in '/posts/_id' page
 
         // Here we store an id locally for each records during user interaction
         // to fetch, compare, update, delete, etc
         // It wont be written in the json firebase DB cause it's actually the entry where the record is stored.
+
+        // With axios module we dont get the response but the data directly
         return {
-          loadedPost: { ...res.data, id: context.params.postId } // seems to be better than res.data.name
+          loadedPost: { ...data, id: context.params.postId } // seems to be better than res.data.name
         }
       })
       .catch((err) => {
