@@ -13,7 +13,11 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters({ loadedPosts: 'loadedPosts' })
-  }
+  },
+  /*
+   * Allows to attach a middleware execution to this page
+   */
+  middleware: 'log'
   // /**
   //  * Nuxt option that works the same as asyncData, fetch on server once and on client several times after.
   //  * IMPORTANT: initialize the store instead of merging received data with data option.
