@@ -18,3 +18,11 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
+## Env vars
+
+Set your own .env file with those variables:
+
+``` 
+FIREBASE_API_KEY={{FIREBASE_API_KEY}}
+BASE_API_URL={{BASE_API_URL}}
+```
