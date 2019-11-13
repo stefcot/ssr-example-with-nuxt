@@ -62,7 +62,8 @@ export default {
    * and override the base url env variable
    */
   axios: {
-    baseURL: process.env.BASE_API_URL || 'https://nuxt-db-post.firebaseio.com'
+    baseURL: process.env.BASE_API_URL || 'https://nuxt-db-post.firebaseio.com',
+    mode: 'no-cors'
   },
   /*
    ** Build configuration
