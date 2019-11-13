@@ -5,7 +5,8 @@ export const state = () => ({
 })
 
 export const getters = {
-  token: (state) => state.token
+  token: (state) => state.token,
+  isAuthenticated: (state) => state.token !== null
 }
 
 export const mutations = {

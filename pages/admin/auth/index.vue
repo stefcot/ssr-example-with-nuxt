@@ -10,14 +10,14 @@
         >
         <div class="auth-footer">
           <AppButton type="submit">{{
-            isLogin ? 'Sign in' : 'Sign up'
+            isLogin ? 'Login' : 'Sign up'
           }}</AppButton>
           <AppButton
             type="button"
             btn-style="inverted"
             style="margin-left: 10px;"
             @click="isLogin = !isLogin"
-            >Switch to {{ isLogin ? 'Sign in' : 'Sign up' }}</AppButton
+            >Switch to {{ isLogin ? 'Sign up' : 'Sign in' }}</AppButton
           >
         </div>
       </form>
