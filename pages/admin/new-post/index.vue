@@ -17,7 +17,7 @@ export default {
    * Allows to attach a middleware execution to this page
    * Log redirect if user is not authenticated
    */
-  middleware: 'log',
+  middleware: ['check-auth', 'auth'],
   components: {
     AdminPostForm
   },
