@@ -1,9 +1,13 @@
 <template>
   <div class="admin-auth-page">
     <div class="auth-container">
-      <form>
-        <AppControlInput type="email">Email address</AppControlInput>
-        <AppControlInput type="password">Password</AppControlInput>
+      <form @submit.prevent="onSubmit">
+        <AppControlInput v-model="email" type="email"
+          >Email address</AppControlInput
+        >
+        <AppControlInput v-model="password" type="password"
+          >Password</AppControlInput
+        >
         <div class="auth-footer">
           <AppButton type="submit">{{
             isLogin ? 'Sign in' : 'Sign up'
@@ -21,12 +25,34 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
+import { AUTHENTICATE_USER } from '@/store/types'
 export default {
   layout: 'admin',
   name: 'AdminAuthPage',
   data() {
     return {
-      isLogin: true
+      isLogin: true,
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    ...mapActions('user', {
+      authenticateUser: AUTHENTICATE_USER
+    }),
+    /**
+     * Google API firebase hosted signin REST API entry point:
+     * `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.firebaseApiKey}`,
+     */
+    onSubmit() {
+      this.authenticateUser({
+        email: this.email,
+        password: this.password,
+        isLogin: this.isLogin
+      }).then(() => {
+        this.$router.push('/admin')
+      })
     }
   }
 }
