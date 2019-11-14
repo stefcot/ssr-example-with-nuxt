@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 export default {
   mode: 'universal',
   /*
@@ -46,19 +48,22 @@ export default {
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    // Doc: https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv'
   ],
   /*
    ** Nuxt.js modules
    */
   modules: ['@nuxtjs/axios'],
   /*
-   * Nuxt.js modules - AIOS
+   * Nuxt.js modules - AXIOS
    * Now we can configure default axios options
    * and override the base url env variable
    */
   axios: {
-    baseURL: process.env.BASE_API_URL || 'https://nuxt-db-post.firebaseio.com'
+    baseURL: process.env.BASE_API_URL || 'https://nuxt-db-post.firebaseio.com',
+    mode: 'no-cors'
   },
   /*
    ** Build configuration
@@ -69,14 +74,15 @@ export default {
      */
     extend(config, ctx) {}
   },
-  // env: {
-  //   /*
-  //    * Here you can store all you env based variables as so
-  //    *
-  //    */
-  //   baseApiUrl:
-  //     process.env.BASE_API_URL || 'https://nuxt-db-post.firebaseio.com'
-  // },
+  env: {
+    // /*
+    //  * Here you can store all you env based variables as so
+    //  *
+    //  */
+    // baseApiUrl:
+    //   process.env.BASE_API_URL || 'https://nuxt-db-post.firebaseio.com'
+    firebaseApiKey: process.env.FIREBASE_API_KEY
+  },
   pageTransition: {
     /*
      * Transition prefix for the anim executed between 2 pages, like the rest, it can be overwritten

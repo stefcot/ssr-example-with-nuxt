@@ -13,6 +13,11 @@ import AdminPostForm from '@/components/Admin/AdminPostForm'
 
 export default {
   layout: 'admin',
+  /*
+   * Allows to attach a middleware execution to this page
+   * Log redirect if user is not authenticated
+   */
+  middleware: ['check-auth', 'auth'],
   components: {
     AdminPostForm
   },

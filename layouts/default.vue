@@ -15,6 +15,10 @@ export default {
     AppHeader,
     SideNav
   },
+  /*
+   * Allows to attach a middleware execution to this page
+   */
+  // middleware: 'log',
   data() {
     return {
       displaySideNav: false

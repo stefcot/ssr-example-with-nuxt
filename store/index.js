@@ -30,8 +30,6 @@ export const actions = {
     return this.$axios
       .$get('/posts.json')
       .then((data) => {
-        // eslint-disable-next-line no-console
-        console.log('nuxtServerInit - data: ', data)
         const postsArray = []
 
         for (const key in data) {
@@ -55,8 +53,14 @@ export const actions = {
       updatedDate: new Date()
     }
 
+    // eslint-disable-next-line no-console
+    console.log('ADD_POST this: ', this)
+
     return this.$axios
-      .$post('/posts.json', createdPost)
+      .$post(
+        `/posts.json?auth=${vuexContext.rootState.user.token}`,
+        createdPost
+      )
       .then((data) => {
         // eslint-disable-next-line no-console
         console.log('Store - ADD_POST on success - data: ', data)
@@ -74,7 +78,10 @@ export const actions = {
     // eslint-disable-next-line no-console
     console.log('Store - EDIT_POST - payload: ', payload)
     return this.$axios
-      .$put(`/posts/${payload.id}.json`, payload)
+      .$put(
+        `/posts/${payload.id}.json?auth=${vuexContext.rootState.user.token}`,
+        payload
+      )
       .then((data) => {
         // eslint-disable-next-line no-console
         console.log('Store - EDIT_POST on success - data: ', data)
