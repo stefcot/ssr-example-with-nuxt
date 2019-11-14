@@ -3,7 +3,8 @@ import {
   AUTHENTICATE_USER,
   SET_TOKEN,
   CLEAR_TOKEN,
-  INIT_AUTH
+  INIT_AUTH,
+  LOG_OUT
 } from '@/store/types'
 
 function getCookieValue(cookie, key) {
@@ -111,12 +112,29 @@ export const actions = {
 
     // If token is expired, then a new authentication is needed
     if (isTokenExpired || !token) {
-      // The token has to be cleared
-      vuexContext.commit(CLEAR_TOKEN)
+      // And the user is logged out
+      vuexContext.dispatch(LOG_OUT)
       return
     }
 
     // The token is finally set
     vuexContext.commit(SET_TOKEN, token)
+  },
+
+  /**
+   * TODO: only keep the cookie storage approach
+   * @param vuexContext
+   */
+  [LOG_OUT](vuexContext) {
+    vuexContext.commit(CLEAR_TOKEN)
+
+    Cookie.remove('token')
+    Cookie.remove('tokenExpiration')
+
+    // Because this actions would be called on server side through the auth middleware
+    if (process.client) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('tokenExpiration')
+    }
   }
 }

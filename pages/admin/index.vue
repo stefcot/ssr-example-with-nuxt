@@ -3,6 +3,7 @@
     <h1>Admin page</h1>
     <section class="new-post">
       <AppButton @click="onCreateButtonClick">Create post</AppButton>
+      <AppButton @click="onLogOutButtonClick">Log out</AppButton>
     </section>
     <section class="existing-posts">
       <h1>Existing posts</h1>
@@ -12,7 +13,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import { LOG_OUT } from '@/store/types'
 export default {
   layout: 'admin',
   /*
@@ -24,8 +26,16 @@ export default {
     ...mapGetters({ loadedPosts: 'loadedPosts' })
   },
   methods: {
+    ...mapActions('user', {
+      logout: LOG_OUT
+    }),
     onCreateButtonClick() {
       this.$router.push('/admin/new-post')
+    },
+    onLogOutButtonClick() {
+      this.logout()
+      // Optional: will redirect to login screen
+      this.$router.push('/admin/auth')
     }
   }
 }
