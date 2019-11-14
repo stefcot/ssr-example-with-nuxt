@@ -1,10 +1,24 @@
+import Cookie from 'js-cookie'
 import {
   AUTHENTICATE_USER,
   SET_TOKEN,
   CLEAR_TOKEN,
-  SET_LOGOUT_TIMER,
   INIT_AUTH
 } from '@/store/types'
+
+function getCookieValue(cookie, key) {
+  // trying to get key/value pair
+  const cookieKeyValuePair = cookie
+    .split(';')
+    .find((str) => str.trim().startsWith(`${key}=`))
+
+  // If no key/value pair found, then return null
+  if (!cookieKeyValuePair) {
+    return null
+  }
+
+  return cookieKeyValuePair.split('=')[1]
+}
 
 export const state = () => ({
   token: null
@@ -26,9 +40,13 @@ export const mutations = {
 }
 
 export const actions = {
+  /**
+   * TODO: only keep the cookie storage approach
+   * @param vuexContext
+   * @param authData
+   * @returns {Promise<any | never>}
+   */
   [AUTHENTICATE_USER](vuexContext, authData) {
-    // eslint-disable-next-line no-console
-    console.log(AUTHENTICATE_USER)
     let authApiUrl =
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' // Signin URL
     // If the user is trying to signup, use this piece of code
@@ -48,20 +66,16 @@ export const actions = {
         }
       )
       .then((data) => {
-        // eslint-disable-next-line no-console
-        console.log('[AUTHENTICATE_USER] data: ', data)
-        const timeout = data.expiresIn * 1000
-        // eslint-disable-next-line no-console
-        console.log('[AUTHENTICATE_USER] timeout: ', timeout)
+        const timeout = Number.parseInt(data.expiresIn) * 1000
         const tokenExpiration = new Date().getTime() + timeout
-        // eslint-disable-next-line no-console
-        console.log('[AUTHENTICATE_USER] tokenExpiration: ', tokenExpiration)
 
         localStorage.setItem('token', data.idToken)
         localStorage.setItem('tokenExpiration', tokenExpiration)
 
+        Cookie.set('token', data.idToken)
+        Cookie.set('tokenExpiration', tokenExpiration)
+
         vuexContext.commit(SET_TOKEN, data.idToken)
-        vuexContext.dispatch(SET_LOGOUT_TIMER, timeout)
       })
       .catch((err) => {
         // eslint-disable-next-line no-console
@@ -69,38 +83,40 @@ export const actions = {
       })
   },
 
-  [SET_LOGOUT_TIMER](vuexContext, duration) {
-    // Can be call on authentication and on first page load
-    // as well if the token is still valid
-    setTimeout(() => {
-      vuexContext.commit(CLEAR_TOKEN)
-    }, duration)
-  },
+  /**
+   * TODO: only keep the cookie storage approach
+   * @param vuexContext
+   * @param req
+   */
+  [INIT_AUTH](vuexContext, req) {
+    let token
+    let tokenExpiration
 
-  [INIT_AUTH](vuexContext) {
-    // Checkk if token are present
-    const token = localStorage.getItem('token')
-    const tokenExpiration = localStorage.getItem('tokenExpiration')
-    const isTokenExpired = new Date() > +tokenExpiration
-    // eslint-disable-next-line no-console
-    console.log('INIT_AUTH - token: ', token)
-    // eslint-disable-next-line no-console
-    console.log('INIT_AUTH - tokenExpiration: ', tokenExpiration)
-    // eslint-disable-next-line no-console
-    console.log('INIT_AUTH - isTokenExpired: ', isTokenExpired)
+    // req is defined if initAuth is executed on the server and req express object is created
+    if (req) {
+      // if no cookie set yet, then return
+      if (!req.headers.cookie) {
+        return
+      }
+      // Check if token is stored in the cookie
+      token = getCookieValue(req.headers.cookie, 'token')
+      tokenExpiration = getCookieValue(req.headers.cookie, 'tokenExpiration')
+    } else {
+      // Check if token is stored in the localStorage
+      token = localStorage.getItem('token')
+      tokenExpiration = localStorage.getItem('tokenExpiration')
+    }
+
+    const isTokenExpired = new Date() > Number.parseInt(tokenExpiration)
 
     // If token is expired, then a new authentication is needed
     if (isTokenExpired || !token) {
+      // The token has to be cleared
+      vuexContext.commit(CLEAR_TOKEN)
       return
     }
 
-    const remainingTimeout = +tokenExpiration - new Date().getTime()
-    // eslint-disable-next-line no-console
-    console.log('INIT_AUTH - remainingTimeout: ', remainingTimeout)
-    // If the user arrives on a page still authenticated,
-    // we subtract the current time from the expiration
-    // date to get the remaining timeout
-    vuexContext.dispatch(SET_LOGOUT_TIMER, remainingTimeout)
+    // The token is finally set
     vuexContext.commit(SET_TOKEN, token)
   }
 }
