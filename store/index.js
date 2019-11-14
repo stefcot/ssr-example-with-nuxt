@@ -30,8 +30,6 @@ export const actions = {
     return this.$axios
       .$get('/posts.json')
       .then((data) => {
-        // eslint-disable-next-line no-console
-        console.log('nuxtServerInit - data: ', data)
         const postsArray = []
 
         for (const key in data) {
